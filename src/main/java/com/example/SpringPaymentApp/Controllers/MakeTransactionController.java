@@ -159,7 +159,7 @@ public class MakeTransactionController
 			{
 			System.out.println(tr.getSourceId());
 			}
-			System.out.println(filter.length);
+			//System.out.println(filter.length);
 			return "history";
 	  }
 

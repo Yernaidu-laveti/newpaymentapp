@@ -33,5 +33,24 @@ public interface TransactionRepository extends JpaRepository<Transactions,Intege
 	@Query("SELECT t FROM Transactions t WHERE t.transactionDate >=:startDate AND t.transactionDate<=:endDate AND (t.sourceType=:bank  OR t.sourceType=:wallet)")
 	ArrayList<Transactions> findAllByDateRangeAndWalletAndBank(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("bank") String bank, @Param("wallet") String wallet);
 
+	@Query("SELECT t FROM Transactions t WHERE t.transactionDate >=:startDate AND t.transactionDate<=:endDate AND (t.transactionType=:bank  OR t.transactionType=:wallet)")
+	ArrayList<Transactions> findAllByDateRangeAndCreditAndDebit(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("bank") String bank, @Param("wallet") String wallet);
+	
+	@Query("SELECT t FROM Transactions t WHERE t.transactionDate >=:startDate AND t.transactionDate<=:endDate AND (t.sourceType=:bank  AND t.transactionType=:wallet)")
+	ArrayList<Transactions> findAllByDateRangeAndSourceAndTransaction(@Param("startDate") String startDate, @Param("endDate") String endDate,@Param("bank") String bank, @Param("wallet") String wallet);
+	
+	
+	// Triple selection
+	@Query("SELECT t FROM Transactions t WHERE t.transactionDate >=:startDate AND t.transactionDate<=:endDate AND (t.sourceType=:bank  OR t.sourceType=:wallet) AND (t.transactionType=:debit)")
+	ArrayList<Transactions> findAllByDateRangeAndWalletAndBankAndType(String startDate, String endDate, String bank,
+			String wallet, String debit);
+	
+	
+	@Query("SELECT t FROM Transactions t WHERE t.transactionDate >=:startDate AND t.transactionDate<=:endDate AND (t.sourceType=:bank) AND (t.transactionType=:credit OR t.transactionType=:debit)")
+		ArrayList<Transactions> findAllByDateRangeAndCreditAndDebitAndType(String startDate, String endDate, String bank,
+			String credit, String debit);
+
+	
+
 
 }
