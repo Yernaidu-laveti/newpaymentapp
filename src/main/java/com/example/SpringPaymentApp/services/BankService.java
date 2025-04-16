@@ -1,5 +1,7 @@
 package com.example.SpringPaymentApp.services;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +19,9 @@ public class BankService
 		bankrepository.save(bankAccounts);
 	}
 	
-	public BankAccounts getAccounts(int id) {
+	public ArrayList<BankAccounts> getAccounts(int id) {
 		// TODO Auto-generated method stub
-		BankAccounts accounts=null;
+		ArrayList<BankAccounts> accounts=new ArrayList<BankAccounts>() ;
 		accounts=bankrepository.findByUserId(id);
 		return accounts;
 	}
@@ -28,7 +30,7 @@ public class BankService
 		// TODO Auto-generated method stub
 		BankAccounts accounts=null;
 		accounts=bankrepository.findByAccountNumber(accountNumber);
-		return accounts;
+		 return accounts;
 	}
 
 	public void updatebalance(int accountNumber, double targetBalance) {
@@ -42,6 +44,11 @@ public void updatewallet(int accountNumber, double walletAmount) {
 		bankrepository.updateWallet(accountNumber,walletAmount);
 		
 	}
+
+//public boolean findAccount(String id) {
+//	
+//	return bankrepository.findByAccountNumber(id);
+//}
 
 	
 	

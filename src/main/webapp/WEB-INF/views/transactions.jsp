@@ -10,6 +10,27 @@
             padding: 30px;
         }
 
+		.topbar {
+		  background-color: #2c3e50;
+		  padding: 15px 30px;
+		  display: flex;
+		  justify-content: flex-end;
+		  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+		}
+
+		.topbar a {
+		  color: white;
+		  font-weight: bold;
+		  text-decoration: none;
+		  background-color: #3498db;
+		  padding: 10px 18px;
+		  border-radius: 6px;
+		  transition: background-color 0.3s ease;
+		}
+
+		.topbar a:hover {
+		  background-color: #1e70bf;
+		}
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -85,6 +106,10 @@
     </style>
 </head>
 <body>
+	
+	<div class="topbar">
+	    <a href="indexpage"> Home</a>
+	  </div>
 
 <div class="container">
     <h2>Statement Request Page</h2>

@@ -2,6 +2,7 @@ package com.example.SpringPaymentApp.services;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -82,47 +83,47 @@ public ArrayList<Transactions> doubleselectiontransactions(String[] filter, Stri
 {
 	
 	ArrayList<Transactions> result=new ArrayList<Transactions>();
-	if((filter[0].equals("wallet") || filter[0].equals("bank")) && (filter[0].equals("wallet") || filter[0].equals("bank")) )
+	if((filter[0].equals("wallet") || filter[0].equals("bank")) && (filter[1].equals("wallet") || filter[1].equals("bank")) )
 	{
 		String bank="wallet";
 		String wallet="bank";
 		System.out.println(filter[0]+" "+filter[1]);
 		result=transRepo.findAllByDateRangeAndWalletAndBank(startDate,endDate,bank,wallet);
 	}
-	else if((filter[0].equals("credit") || filter[0].equals("debit")) && (filter[0].equals("credit") || filter[0].equals("debit")) )
+	else if((filter[0].equals("credit") || filter[0].equals("debit")) && (filter[1].equals("credit") || filter[1].equals("debit")) )
 	{
 		String bank="credit";
 		String wallet="debit";
 		System.out.println(filter[0]+" "+filter[1]);
 		result=transRepo.findAllByDateRangeAndCreditAndDebit(startDate,endDate,bank,wallet);
 	}
-	else if((filter[0].equals("credit") || filter[0].equals("wallet")) && (filter[0].equals("credit") || filter[0].equals("wallet")) )
+	else if((filter[0].equals("credit") || filter[0].equals("wallet")) && (filter[1].equals("credit") || filter[1].equals("wallet")) )
 	{
-		String bank="credit";
-		String wallet="wallet";
+		String bank="wallet";
+		String wallet="credit";
 		System.out.println(filter[0]+" "+filter[1]);
 		result=transRepo. findAllByDateRangeAndSourceAndTransaction(startDate,endDate,bank,wallet);
 	}
-	else if((filter[0].equals("credit") || filter[0].equals("bank")) && (filter[0].equals("credit") || filter[0].equals("bank")) )
+	else if((filter[0].equals("credit") || filter[0].equals("bank")) && (filter[1].equals("credit") || filter[1].equals("bank")) )
 	{
-		String bank="credit";
-		String wallet="bank";
+		String bank="bank";
+		String wallet="credit";
 		System.out.println(filter[0]+" "+filter[1]);
 		result=transRepo. findAllByDateRangeAndSourceAndTransaction(startDate,endDate,bank,wallet);
 	}
-	else if((filter[0].equals("debit") || filter[0].equals("wallet")) && (filter[0].equals("crdebitedit") || filter[0].equals("wallet")))
+	else if((filter[0].equals("debit") || filter[0].equals("wallet")) && (filter[1].equals("debit") || filter[1].equals("wallet")))
 	{
 		String bank="wallet";
 		String wallet="debit";
 		System.out.println(filter[0]+" "+filter[1]);
-		result=transRepo.findAllByDateRangeAndWalletAndBank(startDate,endDate,bank,wallet);
+		result=transRepo.findAllByDateRangeAndSourceAndTransaction(startDate,endDate,bank,wallet);
 	}
-	else if((filter[0].equals("debit") || filter[0].equals("bank")) && (filter[0].equals("crdebitedit") || filter[0].equals("bank")))
+	else if((filter[0].equals("debit") || filter[0].equals("bank")) && (filter[1].equals("debit") || filter[1].equals("bank")))
 	{
-		String bank="debit";
-		String wallet="bank";
+		String bank="bank";
+		String wallet="debit";
 		System.out.println(filter[0]+" "+filter[1]);
-		result=transRepo.findAllByDateRangeAndWalletAndBank(startDate,endDate,bank,wallet);
+		result=transRepo.findAllByDateRangeAndSourceAndTransaction(startDate,endDate,bank,wallet);
 	}
 	
 	return result;
@@ -131,56 +132,46 @@ public ArrayList<Transactions> doubleselectiontransactions(String[] filter, Stri
 
 public ArrayList<Transactions> tripleselectiontransactions(String[] filter, String startDate, String endDate) {
 	ArrayList<Transactions> result=new ArrayList<Transactions>();
-	if((filter[0].equals("wallet") || filter[0].equals("debit") || filter[0].equals("bank")) &&filter[1].equals("wallet") || filter[1].equals("debit") || filter[1].equals("bank")
-			|| filter[2].equals("wallet") || filter[2].equals("debit") || filter[2].equals("bank"))
+	Arrays.sort(filter);
+	
+	if(filter[0].equals("bank") && filter[1].equals("credit") && filter[2].equals("wallet"))
 	{
+		
 		String wallet="wallet";
 		String bank="bank";
 		String debit="debit";
 		result=transRepo.findAllByDateRangeAndWalletAndBankAndType(startDate,endDate,bank,wallet,debit);
 	}
-	else if((filter[0].equals("credit") || filter[0].equals("debit") || filter[0].equals("bank")) &&filter[1].equals("credit") || filter[1].equals("debit") || filter[1].equals("bank")
-			|| filter[2].equals("credit") || filter[2].equals("debit") || filter[2].equals("bank"))
+	else if(filter[0].equals("bank") && filter[1].equals("debit") && filter[2].equals("wallet"))
 	{
-		String credit="credit";
-		String bank="bank";
-		String debit="debit";
-		result=transRepo.findAllByDateRangeAndCreditAndDebitAndType(startDate,endDate,bank,credit,debit);
-	}
-
-	else if((filter[0].equals("credit") || filter[0].equals("wallet") || filter[0].equals("bank")) &&filter[1].equals("credit") || filter[1].equals("wallet") || filter[1].equals("bank")
-			|| filter[2].equals("credit") || filter[2].equals("wallet") || filter[2].equals("bank"))
-	{
-		String credit="credit";
+		
+		String debit="credit";
 		String bank="bank";
 		String wallet="wallet";
-		result=transRepo.findAllByDateRangeAndWalletAndBankAndType(startDate,endDate,bank,credit,wallet);
+		result=transRepo.findAllByDateRangeAndWalletAndBankAndType(startDate,endDate,bank,wallet,debit);
 	}
-	else if((filter[0].equals("credit") || filter[0].equals("debit") || filter[0].equals("bank")) &&filter[1].equals("credit") || filter[1].equals("debit") || filter[1].equals("bank")
-			|| filter[2].equals("credit") || filter[2].equals("debit") || filter[2].equals("bank"))
+	else if(filter[0].equals("bank") && filter[1].equals("credit") && filter[2].equals("debit"))
 	{
+		
 		String credit="credit";
 		String bank="bank";
 		String debit="debit";
 		result=transRepo.findAllByDateRangeAndCreditAndDebitAndType(startDate,endDate,bank,credit,debit);
 	}
+	else if(filter[0].equals("credit") && filter[1].equals("debit") && filter[2].equals("wallet"))
+	{
+		
+		String credit="credit";
+		String bank="wallet";
+		String debit="debit";
+		result=transRepo.findAllByDateRangeAndCreditAndDebitAndType(startDate,endDate,bank,credit,debit);
+	}
+	
+	
+	
+	
 	return result;
 }
 	
-//
-//<label><input type="checkbox" name="filters" value="all"> All</label>
-//<label><input type="checkbox" name="filters" value="credit"> Credit Transactions</label>
-//<label><input type="checkbox" name="filters" value="debit"> Debit Transactions</label>
-//<label><input type="checkbox" name="filters" value="wallet"> Wallet</label>
-//<label><input type="checkbox" name="filters" value="bank"> Bank</label>
-
-//	public ArrayList<Transactions> getTenTransactions() {
-//		
-//		Pageable pageable = PageRequest.of(0, 10);
-//		Page<Transactions> page = transRepo.findAll(pageable);
-//		List<Transactions> results = new ArrayList<Transactions>();
-//		results=page.getContent();
-//		return results;
-//	}
 
 }

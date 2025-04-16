@@ -42,13 +42,13 @@ public interface TransactionRepository extends JpaRepository<Transactions,Intege
 	
 	// Triple selection
 	@Query("SELECT t FROM Transactions t WHERE t.transactionDate >=:startDate AND t.transactionDate<=:endDate AND (t.sourceType=:bank  OR t.sourceType=:wallet) AND (t.transactionType=:debit)")
-	ArrayList<Transactions> findAllByDateRangeAndWalletAndBankAndType(String startDate, String endDate, String bank,
-			String wallet, String debit);
+	ArrayList<Transactions> findAllByDateRangeAndWalletAndBankAndType(@Param("startDate") String startDate, @Param("endDate") String endDate, @Param("bank") String bank,
+			@Param("wallet") String wallet,@Param("debit") String debit);
 	
 	
 	@Query("SELECT t FROM Transactions t WHERE t.transactionDate >=:startDate AND t.transactionDate<=:endDate AND (t.sourceType=:bank) AND (t.transactionType=:credit OR t.transactionType=:debit)")
-		ArrayList<Transactions> findAllByDateRangeAndCreditAndDebitAndType(String startDate, String endDate, String bank,
-			String credit, String debit);
+		ArrayList<Transactions> findAllByDateRangeAndCreditAndDebitAndType(@Param("startDate") String startDate,@Param("endDate") String endDate, @Param("bank") String bank,
+				@Param("credit") String credit, @Param("debit") String debit);
 
 	
 

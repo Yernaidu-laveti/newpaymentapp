@@ -4,9 +4,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.SpringPaymentApp.entity.BankAccounts;
+import com.example.SpringPaymentApp.services.BankService;
 import com.example.SpringPaymentApp.services.UserService;
 
 import jakarta.servlet.http.HttpSession;
+
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +23,9 @@ public class UserLoginController {
 	
 	@Autowired
 	UserService service;
+    
+	@Autowired
+	BankService bankserv;
 
 	@PostMapping("/login")
     public String home(@RequestParam String userName,@RequestParam String password,Model model,HttpSession session){
@@ -27,8 +34,13 @@ public class UserLoginController {
 		
 		if(result==true)
 		{
+			
 			int id=service.getid(userName,password);
 			session.setAttribute("profileid",id);
+			session.setAttribute("userName", userName);
+			ArrayList<BankAccounts> accounts=new ArrayList<BankAccounts>();
+			accounts=bankserv.getAccounts(id);
+			model.addAttribute("bankaccounts",accounts);
 			return "index";
 		}
 		else

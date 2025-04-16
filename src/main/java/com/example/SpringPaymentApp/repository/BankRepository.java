@@ -1,5 +1,7 @@
 package com.example.SpringPaymentApp.repository;
 
+import java.util.ArrayList;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -12,7 +14,7 @@ import jakarta.transaction.Transactional;
 
 public interface BankRepository extends  JpaRepository<BankAccounts,Integer> 
 {
-	BankAccounts findByUserId(int userId);
+	ArrayList<BankAccounts> findByUserId(int userId);
 
 	BankAccounts findByAccountNumber(String accountNumber);
 	
@@ -25,5 +27,7 @@ public interface BankRepository extends  JpaRepository<BankAccounts,Integer>
 	@Transactional
 	@Query("UPDATE BankAccounts b SET b.walletAmount=:walletAmount where  b.accountNumber = :accountNumber")
 	 void updateWallet(@Param("accountNumber") int accountNumber, @Param("walletAmount") double walletAmount);
+	
+	//BankAccounts findByAccountNumber(String accountNumber);
 
 }
