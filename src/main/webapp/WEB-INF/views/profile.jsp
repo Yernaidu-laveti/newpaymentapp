@@ -6,6 +6,29 @@
 	  <meta charset="UTF-8">
 	  <title>User Profile</title>
 	  <style>
+		
+		.topbar
+		{
+			color: white;
+			font-weight: bold;
+			width:100px;
+			height:50px;
+			background-color:#2c3e50;
+			cursor:pointer;
+			font-size:25px;
+			position:absolute;
+			right:50px;
+			top:20px;
+			border-radius:5px;
+			text-align:center;
+			
+		}
+		
+		.topbar>a
+		{
+			color:white;
+		}
+		
 	    body {
 	      font-family: 'Segoe UI', sans-serif;
 	      background-color: #f0f2f5;
@@ -143,7 +166,11 @@
 	  </style>
 	</head>
 	<body>
-	<p>${output}</p>
+		
+		<div class="topbar">
+		        <a href="indexpage">Home</a>
+		    </div>
+	
 	  <div class="profile-card">
 	    <h2>User Profile</h2>
 
@@ -222,6 +249,15 @@
 	      closeModal();
 	      // Optional: clear profile details or redirect
 	    }
+		
+		<% 
+		    String msg = (String) request.getAttribute("msg");
+		    if (msg != null) { 
+		  %>
+		      alert("<%= msg.replace("\"", "\\\"") %>");
+		  <% 
+		    } 
+		  %>
 	  </script>
 
 	</body>
